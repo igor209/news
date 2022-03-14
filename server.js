@@ -10,6 +10,7 @@ app.use(express.urlencoded())
 app.get('/dadosnoticias', (req, res)=>{
     res.json(dados)
 })
-http.createServer(app).listen(3000)
+porta = process.env.PORT || 3000
+http.createServer(app).listen(porta)
 
 console.log('servidor online')
