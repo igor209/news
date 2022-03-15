@@ -24,7 +24,7 @@ newsapi.v2.topHeadlines({
 
   var dadosatuais = carregar()
   response.articles.map((item)=>{
-
+    console.log(item)
     var esquema = {}
     var licensa = false
     esquema.id = dadosatuais.contadorId
@@ -33,7 +33,7 @@ newsapi.v2.topHeadlines({
     esquema.link = item.url
     esquema.linkimagem = item.urlToImage
     esquema.data = modificardata(item.publishedAt)
-    esquema.conteudo = item.content
+    esquema.conteudo = item.content == null? "null": item.content.split('[+')[0]
     
     dadosatuais.noticiasrecentes.map((dado)=>{
       if(dado.titulo === esquema.titulo){

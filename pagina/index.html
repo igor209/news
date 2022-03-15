@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -162,13 +162,16 @@
         <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
           $.getJSON("/dadosnoticias", (res)=>{
-            console.log(res.noticiasrecentes)
-            res.noticiasrecentes.map((item)=>{
-              if(item.id < 20){
-                $(".noticiasrecentes").append('<div class="col"><div class="card shadow-sm"><a href="#" class="nav-link active" style="position: absolute;background-color:rgb(255, 97, 49);color: white;padding: 0 5px;margin: 5px;" aria-current="page">#</a><img src="'+item.linkimagem+'" alt="" height="180"><div class="card-body"><p class="card-text">'+item.titulo+'</p><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href ='+'noticia.html'+'" style="padding:0 15px 0 15px;font-size: 18px;background-color:rgb(143, 143, 255);color: white;font-weight: 600;">Leia mais...</button></div><small class="text-muted">'+item.data+'</small></div></div></div></div>')
-              }
-            })
+            
+            for(var i = res.noticiasrecentes.length-1;i > res.noticiasrecentes.length - 11;i--){
+              var newid = 'id='+res.noticiasrecentes[i].id
+              $(".noticiasrecentes").append('<div class="col"><div class="card shadow-sm"><a href="#" class="nav-link active" style="position: absolute;background-color:rgb(255, 97, 49);color: white;padding: 0 5px;margin: 5px;" aria-current="page">#</a><img src="'+res.noticiasrecentes[i].linkimagem+'" alt="" height="180"><div class="card-body"><p class="card-text">'+res.noticiasrecentes[i].titulo+'</p><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="direcionar(`'+res.noticiasrecentes[i].titulo+newid+'`)" style="padding:0 15px 0 15px;font-size: 18px;background-color:rgb(143, 143, 255);color: white;font-weight: 600;">Leia mais...</button></div><small class="text-muted">'+res.noticiasrecentes[i].data+'</small></div></div></div></div>')
+            }
+            
           })
+          function direcionar(item){
+              window.location.href = '/'+item
+          }
         </script>
     </body>
     </html>

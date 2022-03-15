@@ -9,20 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
-  <script>
-    var url = 'https://newsapi.org/v2/everything?' +
-          'q=Apple&' +
-          'from=2022-03-10&' +
-          'sortBy=popularity&' +
-          'apiKey=cff439bbff274b588593cfc86f0fd457';
-
-var req = new Request(url);
-
-fetch(req)
-    .then(function(response) {
-        console.log(response.json());
-    })
-  </script>
     
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -61,14 +47,14 @@ fetch(req)
     <main>
     
       <div class="album py-5 bg-light">
-        <div class="container">
-            Alta do Bitcoin não resiste ao apetite por lucros de investidores, que seguem à espera de um acordo que coloque fim na guerra da Ucrânia...
+        <img src="" alt="" id="imagemnoticia" style="width: 90%; margin-right: auto; margin-left: auto; display: block; margin-bottom: 50px;">
+        <div class="container conteinerconteudo">
         </div>
         <section class=" text-center container">
             <div class="row">
               <div class="col-lg-6 col-md-8 mx-auto">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm col-lg-6 col-md-8 mx-auto" style="padding:0 15px 0 15px;font-size: 18px;background-color:rgb(143, 143, 255);color: white;">Leia mais...</button>
+                    <a type="button" class="btn btn-sm col-lg-6 col-md-8 mx-auto leiamais" style="margin: 20px 0 0 0; padding:0 15px 0 15px;font-size: 18px;background-color:rgb(143, 143, 255);color: white;">Leia mais</a>
                   </div>
               </div>
             </div>
@@ -86,12 +72,23 @@ fetch(req)
           <p class="mb-0"></p>
         </div>
       </footer>
-    
-    
-        <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    
-          
-      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script>
+        var id =window.location.href.split('id=')[1]
+        console.log(id)
+        $.getJSON("/dadosnoticias", (res)=>{
+          var conteudo = 0
+          res.noticiasrecentes.map((item)=>{
+            if(item.id == id){
+              conteudo = item
+            }
+          })
+          $('.conteinerconteudo').append(conteudo.conteudo)
+          $('.leiamais').attr('href', conteudo.link)
+          $('#imagemnoticia').attr('src', conteudo.linkimagem)
+        })
+      </script>
     
     </body>
     </html>
